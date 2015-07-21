@@ -5,6 +5,8 @@
     <string name="textview">Search For Books!</string>
     <string name="button">Search</string>
     <string name="hint">Title and/or Author</string>
+    <string name="phone_number">Enter Phone number</string>
+    <string name="verify_phonenumber">Verify phone number</string>
     <string name="activity_details">Book Details</string>
 
 </resources>

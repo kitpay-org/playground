@@ -3,12 +3,14 @@ package com.example.sammy.ngpaytest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ShareActionProvider;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,11 +33,15 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener,
+        AdapterView.OnItemClickListener {
     TextView mainTextView;
     Button mainButton;
     EditText mainEditText;
 
+    EditText mainPhoneNumberText;
+
+    Button verifyNumberButton;
 
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
@@ -53,6 +59,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     private static final String QUERY_URL = "http://openlibrary.org/search.json?q=";
 
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +76,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // and listen for it here
         mainButton = (Button) findViewById(R.id.main_button);
         mainButton.setOnClickListener(this);
+
+//        // and listen for it here
+//        verifyNumberButton = (Button) findViewById(R.id.main_verifynumber_btn);
+//        verifyNumberButton.setOnClickListener(this);
+
+
+        mainPhoneNumberText = (EditText) findViewById(R.id.main_phonenumber);
 
         // 3. Access the EditText defined in layout XML
         mainEditText = (EditText) findViewById(R.id.main_edittext);
@@ -89,6 +105,24 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         mDialog = new ProgressDialog(this);
         mDialog.setMessage("Searching for Book");
         mDialog.setCancelable(false);
+
+        registerSMSReader();
+    }
+
+    public void registerSMSReader() {
+        MySMSReceiver BR_smsreceiver = null;
+        BR_smsreceiver = new MySMSReceiver();
+        BR_smsreceiver.setMainActivityHandler(this);
+        IntentFilter fltr_smsreceived = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+        registerReceiver(BR_smsreceiver,fltr_smsreceived);
+    }
+
+
+    public void verifyNumberClicked(View view) {
+        Log.d(TAG, "----------------------------------------------");
+        SmsManager sm = SmsManager.getDefault();
+        sm.sendTextMessage("09886034902", null, "testing testing", null, null);
+//        mainPhoneNumberText.getText().toString();
     }
 
     @Override
@@ -225,6 +259,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
             alert.show();
         }
+    }
+
+
+    public void displaySMSVerification(String str) {
+        Log.d(TAG, "------------------===========================");
+        Log.d(TAG, str);
+        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
     }
 
     private void queryBooks(String searchString) {
