@@ -1,6 +1,7 @@
 package com.example.sammy.ngpaytest;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -11,6 +12,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ShareActionProvider;
 import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +33,8 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener,
@@ -64,8 +68,17 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TextView phnumTextView = null;
+
+        String mPhoneNumber = getMy10DigitPhoneNumber();
+        phnumTextView = (TextView) findViewById(R.id.my_phone_number);
+        phnumTextView.setText(mPhoneNumber);
+
 
         // 1. Access the TextView defined in layout XML
         // and then set its text
@@ -109,19 +122,31 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         registerSMSReader();
     }
 
+    private String getMyPhoneNumber(){
+        TelephonyManager mTelephonyMgr;
+        mTelephonyMgr = (TelephonyManager)
+                getSystemService(Context.TELEPHONY_SERVICE);
+        return mTelephonyMgr.getLine1Number();
+    }
+
+    private String getMy10DigitPhoneNumber(){
+        String s = getMyPhoneNumber();
+        return s != null && s.length() > 2 ? s.substring(2) : null;
+    }
+
     public void registerSMSReader() {
         MySMSReceiver BR_smsreceiver = null;
         BR_smsreceiver = new MySMSReceiver();
         BR_smsreceiver.setMainActivityHandler(this);
         IntentFilter fltr_smsreceived = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
-        registerReceiver(BR_smsreceiver,fltr_smsreceived);
+        registerReceiver(BR_smsreceiver, fltr_smsreceived);
     }
 
 
     public void verifyNumberClicked(View view) {
         Log.d(TAG, "----------------------------------------------");
         SmsManager sm = SmsManager.getDefault();
-        sm.sendTextMessage("09886034902", null, "testing testing", null, null);
+        sm.sendTextMessage("09886034902", null, "[ngPay] One time verification code  #123456#", null, null);
 //        mainPhoneNumberText.getText().toString();
     }
 
@@ -265,7 +290,25 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void displaySMSVerification(String str) {
         Log.d(TAG, "------------------===========================");
         Log.d(TAG, str);
-        Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
+        if (str.contains("[ngPay]")) {
+
+            Matcher m = Pattern.compile(
+                    Pattern.quote("#")
+                            + "(.*?)"
+                            + Pattern.quote("#")
+            ).matcher(str);
+
+            while(m.find()){
+                String match = m.group(1);
+                System.out.println(">"+match+"<");
+                //here you insert 'match' into the list
+                Toast.makeText(getApplicationContext(), match, Toast.LENGTH_LONG).show();
+                break;
+            }
+
+//            Toast.makeText(getApplicationContext(), str, Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void queryBooks(String searchString) {
@@ -325,5 +368,52 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 });
     }
 
+
+
+    /** Called when the user clicks the Send button */
+    public void seeCallLogs(View view) {
+        Intent intent = new Intent(this, MyCallLogActivity.class);
+        startActivity(intent);
+    }
+
+    public void seeDeviceInfo(View view) {
+        Intent intent = new Intent(this, MyDeviceInfoActivity.class);
+        startActivity(intent);
+    }
+
+    public void checkInstalledApps(View view){
+        Intent intent = new Intent(this, MyInstalledAppsActivity.class);
+        startActivity(intent);
+    }
+
+    public void checkNetworkUsage(View view){
+        Intent intent = new Intent(this, MyNetworkUsageActivity.class);
+        startActivity(intent);
+    }
+
+    public void checkContactList(View view){
+        Intent intent = new Intent(this, MyContactListActivity.class);
+        startActivity(intent);
+    }
+
+    public void checkSMSList(View view){
+        Intent intent = new Intent(this, MySMSListActivity.class);
+        startActivity(intent);
+    }
+
+    public void checkNotification(View view){
+        Intent intent = new Intent(this, MyNotificationActivity.class);
+        startActivity(intent);
+    }
+
+    public void checkPager(View view){
+        Intent intent = new Intent(this, MyPagerActivity.class);
+        startActivity(intent);
+    }
+
+    public void checkImgSlider(View view){
+        Intent intent = new Intent(this, ImageSliderActivity.class);
+        startActivity(intent);
+    }
 
 }

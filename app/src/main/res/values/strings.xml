@@ -8,5 +8,44 @@
     <string name="phone_number">Enter Phone number</string>
     <string name="verify_phonenumber">Verify phone number</string>
     <string name="activity_details">Book Details</string>
+    <string name="check_logs">Check Call Logs</string>
+    <string name="check_device_info">Check My Device Info</string>
+    <string name="check_installed_apps">Check My Installed apps</string>
+    <string name="check_network_usage">Check My Network Usage</string>
+    <string name="check_contact_list">Check My Contact List</string>
+    <string name="check_sms_list">Check My SMS List</string>
+    <string name="check_notification">Check Notification</string>
+    <string name="check_pager">Check Pager</string>
+
+    <string-array name="Stuffs">
+        <item>Sun</item>
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+    <string name="title_activity_my_call_log">MyCallLogActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_my_device_info">MyDeviceInfoActivity</string>
+    <string name="title_activity_my_installed_apps">MyInstalledAppsActivity</string>
+    <string name="title_activity_my_network_usage">MyNetworkUsageActivity</string>
+    <string name="title_activity_my_contact_list">MyContactListActivity</string>
+    <string name="title_activity_my_smslist">MySMSListActivity</string>
+    <string name="title_activity_my_notification">MyNotificationActivity</string>
+    <string name="title_activity_my_notification_handler">MyNotificationHandlerActivity</string>
+    <string name="title_activity_my_pager">MyPagerActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_image_slider">ImageSliderActivity</string>
+
+    check_pager
+
+
 
 </resources>

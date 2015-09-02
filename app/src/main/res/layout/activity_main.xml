@@ -1,76 +1,157 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:fillViewport="true"> <!--IMPORTANT otherwise backgrnd img. will not fill the whole screen -->
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/main_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/textview"/>
 
-    <!-- Displays keyboard when touched -->
-    <EditText
-        android:id="@+id/main_phonenumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:hint="@string/phone_number" />
+        <!--<fragment-->
+            <!--android:id="@+id/fragment1"-->
+            <!--android:name="com.example.sammy.ngpaytest.MyListFragment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" />-->
+        <TextView
+            android:id="@+id/my_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
 
-    <Button
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:onClick="verifyNumberClicked"
-        android:text="@string/verify_phonenumber" />
-
-    <!-- Displays keyboard when touched -->
-    <EditText
-        android:id="@+id/main_edittext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:hint="@string/hint" />
-
-
-
-    <!-- This nested layout contains views of its own -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <!-- Set OnClickListener to trigger results when pressed -->
         <Button
-            android:id="@+id/main_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_logs"
+            android:onClick="seeCallLogs" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_device_info"
+            android:onClick="seeDeviceInfo" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_installed_apps"
+            android:onClick="checkInstalledApps" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_network_usage"
+            android:onClick="checkNetworkUsage" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_contact_list"
+            android:onClick="checkContactList" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_sms_list"
+            android:onClick="checkSMSList" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_notification"
+            android:onClick="checkNotification" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_pager"
+            android:onClick="checkPager" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check Image Slider"
+            android:onClick="checkImgSlider"/>
+
+
+
+        <TextView
+            android:id="@+id/main_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/textview"/>
+
+        <!-- Displays keyboard when touched -->
+        <EditText
+            android:id="@+id/main_phonenumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
-            android:text="@string/button" />
-        <!-- Shows an image from your drawable resources -->
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="30dp"
+            android:hint="@string/phone_number" />
+
+        <Button
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
-            android:src="@drawable/ngpay" />
-        <!-- Closing tag for the horizontal nested layout -->
+            android:onClick="verifyNumberClicked"
+            android:text="@string/verify_phonenumber" />
+
+        <!-- Displays keyboard when touched -->
+        <EditText
+            android:id="@+id/main_edittext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:hint="@string/hint" />
+
+
+
+        <!-- This nested layout contains views of its own -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!-- Set OnClickListener to trigger results when pressed -->
+            <Button
+                android:id="@+id/main_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:text="@string/button" />
+            <!-- Shows an image from your drawable resources -->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/ngpay" />
+            <!-- Closing tag for the horizontal nested layout -->
+        </LinearLayout>
+
+        <!-- List whose dataset is defined in code with an adapter -->
+        <ListView
+            android:id="@+id/main_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="21dp"/>
+
+
+
+
     </LinearLayout>
-
-    <!-- List whose dataset is defined in code with an adapter -->
-    <ListView
-        android:id="@+id/main_listview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="21dp"/>
-
-</LinearLayout>
+</ScrollView>
